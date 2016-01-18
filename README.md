@@ -7,7 +7,7 @@ A collection of SCSS mixins and JavaScript helpers used by Codelation for buildi
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "codelation-assets"
+gem "codelation_assets"
 ```
 
 Install the Codelation Assets gem with Bundler:
