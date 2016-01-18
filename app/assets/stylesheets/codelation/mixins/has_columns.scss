@@ -1,0 +1,51 @@
+// Sets up a element and its child elements with the flexbox properties needed
+// to have the given number of columns with an optional gutter value.
+$mobile-breakpoint: 768px !default;
+
+@mixin has-columns($columns, $gutter: 0) {
+  @include align-content(stretch);
+  @include align-items(stretch);
+  @include display(flex);
+  @include flex-direction(row);
+  @include flex-wrap(wrap);
+  @include justify-content(space-around);
+  column-count: $columns; // Used as a reference for JavaScript functions
+  margin: 0;
+  padding: 0;
+
+  > * {
+    @include flex(1 1 auto);
+    margin: 0;
+    width: (1 / $columns) * 85%;
+
+    @if $gutter > 0 {
+      margin-right: $gutter;
+
+      &:nth-child(#{$columns}n) {
+        margin-right: 0;
+      }
+    }
+
+    &:empty {
+      margin-bottom: 0;
+      margin-top: 0;
+      visibility: hidden;
+    }
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    > * {
+      margin-bottom: $gutter;
+      margin-right: 0;
+      width: 100%;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      &:empty {
+        display: none;
+      }
+    }
+  }
+}
