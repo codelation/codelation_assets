@@ -1,5 +1,19 @@
-// A collection of mixins by Codelation
+// A collection of mixins used in Codelation Rails projects
 // https://codelation.com
 
+@import "bourbon";
 @import "codelation/functions/**/*";
 @import "codelation/mixins/**/*";
+@import "normalize";
+
+html { // http://bit.ly/1qk2tVR
+  box-sizing: border-box;
+}
+
+* {
+  &,
+  &::after,
+  &::before {
+    box-sizing: inherit;
+  }
+}

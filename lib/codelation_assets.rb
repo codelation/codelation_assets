@@ -1,3 +1,4 @@
+require "bourbon"
 require "rails/engine"
 
 module CodelationAssets
