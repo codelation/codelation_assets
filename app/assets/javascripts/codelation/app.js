@@ -2,10 +2,14 @@
   "use strict";
 
   var app = window.App;
+  var bodyClass, bodyElement;
 
   if (app === undefined) {
     app = window.App = {};
   }
+
+  app.enterFunctions = { component: [] };
+  app.exitFunctions  = { component: [] };
 
   // Register functions to run when any page or specific pages are loaded.
   //
@@ -25,28 +29,63 @@
   //     // Tear down (Might be needed for Turbolinks)
   //   });
   app.register = function(mixed) {
-    if (mixed === 'component') {
-      return appComponent();
-    } else {
-      return appController(mixed);
-    }
+    return {
+      enter: function(callback) {
+        app.registerEnter(mixed, callback);
+        return this;
+      },
+
+      exit: function(callback) {
+        app.registerExit(mixed, callback);
+        return this;
+      }
+    };
   };
 
-  // Returns an object with `enter` and `exit` functions with for setting
-  // up and tearing down components pages specified by the controller/action.
-  function appController(controllerWithAction) {
-    var body = $('body');
-    var split = controllerWithAction.split('.');
-    var controller = split[0];
-    var action = split[1];
+  app.registerEnter = function(key, callback) {
+    if (app.enterFunctions[key] === undefined) {
+      app.enterFunctions[key] = [];
+    }
+    app.enterFunctions[key].push(callback);
+  };
 
-    // enter: ready page:load
-    // exit:  page:before-unload
-  }
+  app.registerExit = function(key, callback) {
+    if (app.exitFunctions[key] === undefined) {
+      app.exitFunctions[key] = [];
+    }
+    app.exitFunctions[key].push(callback);
+  };
 
-  // Returns an object with `enter` and `exit` functions with for setting
-  // up and tearing down components on each page load/change.
-  function appComponent() {
+  // Fires off any callbacks registered for enter, with or without Turbolinks.
+  $(document).on('ready page:load', function() {
+    bodyElement = $('body');
 
-  }
+    // Determine which functions should be fired
+    var fireFunctions = [];
+    $.each(app.enterFunctions, function(key, functions) {
+      bodyClass = key.split('.').join(' ');
+      if (bodyClass === 'component' || bodyElement.hasClass(bodyClass)) {
+        fireFunctions = fireFunctions.concat(functions);
+      }
+    });
+
+    // Fire off each function
+    $.each(fireFunctions, function() { this.call(); });
+  });
+
+  // Fires off any callbacks registered for exit, ONLY if using Turbolinks.
+  $(document).on('page:before-unload', function() {
+    var fireFunctions = [];
+
+    // Determine which functions should be fired
+    $.each(app.exitFunctions, function(key, functions) {
+      bodyClass = key.split('.').join(' ');
+      if (bodyClass === 'component' || bodyElement.hasClass(bodyClass)) {
+        fireFunctions = fireFunctions.concat(functions);
+      }
+    });
+
+    // Fire off each function
+    $.each(fireFunctions, function() { this.call(); });
+  });
 })();
