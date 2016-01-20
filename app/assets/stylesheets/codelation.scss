@@ -6,6 +6,7 @@
 @import "codelation/mixins/**/*";
 @import "normalize";
 
+// Border Box by default for all elements
 html { // http://bit.ly/1qk2tVR
   box-sizing: border-box;
 }
