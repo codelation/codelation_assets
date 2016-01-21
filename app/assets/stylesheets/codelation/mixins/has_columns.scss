@@ -13,7 +13,6 @@ $mobile-breakpoint: 767px !default;
 
   > * {
     @include flex(1 1 auto);
-    margin: 0;
     width: (1 / $columns) * 85%;
 
     @if $gutter > 0 {
