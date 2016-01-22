@@ -33,4 +33,15 @@ $accent-color: $blue !default;
     background-image: linear-gradient(to bottom, lighten($active-background-color, 3%), darken($active-background-color, 5%));
     color: $active-color;
   }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+
+    &:hover,
+    &:active {
+      background-image: linear-gradient(to bottom, $background-color, darken($background-color, 8%));
+      color: $color;
+    }
+  }
 }
