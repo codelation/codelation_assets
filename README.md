@@ -115,7 +115,7 @@ A handful of useful Sass functions and mixins written by Codelation are also inc
 
 ##### Sass Functions
 
-###### color($color, $number: 500)
+**color($color, $number: 500)**
 
 The [Google Material Design Colors](https://www.google.com/design/spec/style/color.html) come in handy when you
 need a color for creating application interfaces. They are a much better alternative to CSS's named colors
@@ -140,25 +140,25 @@ Examples:
 }
 ```
 
-###### text-color($color)
+**text-color($color)**
 
 This function is useful for creating mixins where you have a background color as a variable
 and need to display either black or white text on top of the given color.
 
 ##### Sass Mixins
 
-###### button($background-color: color($grey, 100), $font-color: $grey, $active-background-color: $accent-color, $active-font-color: text-color($accent-color))
+**@mixin button($background-color: color($grey, 100), $color: color($grey, 800), $active-background-color: $accent-color, $active-color: text-color($accent-color))**
 
 By default, this will create a plain grey button. It is close to the default button in some browsers, but will
 actually be rendered the same across all browsers. Useful for applications that need to be obvious about
 a button looking like a button.
 
-###### center-children
+**center-children**
 
 This mixin uses flexbox to center the child elements horizontally and vertically inside the element.
 A good use case is centering an image of unknown height inside a container with a fixed height.
 
-###### has-cards($columns, $margin: 0)
+**has-cards($columns, $margin: 0)**
 
 This mixin uses flexbox to create a cards layout like that used by Google Material Design. The
 mixin is used on the container element. This will create a fixed margin between each card element
@@ -191,7 +191,7 @@ Example:
 }
 ```
 
-###### has-columns($columns, $gutter: 0)
+**has-columns($columns, $gutter: 0)**
 
 This mixin uses flexbox to create a layout with the specified number of columns
 that stretch to fill the container's height. The given gutter size will the margin
