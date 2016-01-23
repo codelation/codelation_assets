@@ -147,7 +147,7 @@ and need to display either black or white text on top of the given color.
 
 ##### Sass Mixins
 
-**@mixin button($background-color: color($grey, 100), $color: color($grey, 800), $active-background-color: $accent-color, $active-color: text-color($accent-color))**
+**button($background-color: color($grey, 100), $color: color($grey, 800), $active-background-color: $accent-color, $active-color: text-color($accent-color))**
 
 By default, this will create a plain grey button. It is close to the default button in some browsers, but will
 actually be rendered the same across all browsers. Useful for applications that need to be obvious about
