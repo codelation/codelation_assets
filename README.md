@@ -131,12 +131,12 @@ Examples:
 
 // You can also use the different shades available
 .error {
-  color: ($red, 700);
+  color: color($red, 700);
 }
 
 // @see https://www.google.com/design/spec/style/color.html
 .success {
-  color: ($green, 600);
+  color: color($green, 600);
 }
 ```
 
