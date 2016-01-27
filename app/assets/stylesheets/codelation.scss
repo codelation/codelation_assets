@@ -1,5 +1,6 @@
 // A collection of mixins used in Codelation Rails projects
 // https://codelation.com
+$mobile-breakpoint: 767px !default;
 
 @import "bourbon";
 @import "codelation/functions/**/*";

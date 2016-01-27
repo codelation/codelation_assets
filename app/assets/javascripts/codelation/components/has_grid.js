@@ -1,7 +1,7 @@
 (function() {
   "use strict";
 
-  // Used with the `has-cards` and `has-columns` Sass mixins,
+  // Used with the `has-grid` and `has-cards` Sass mixins,
   // it appends an extra span element for each missing column
   // based on the number of columns defined in the CSS.
   App.register('component').enter(function() {

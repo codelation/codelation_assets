@@ -1,12 +1,14 @@
 // Sets up a element and its child elements with the flexbox properties needed
-// to have the given number of columns with an optional gutter value.
-@mixin has-columns($columns, $gutter: 0) {
+// to have the given number of columns per row with multiple rows in the container
+// and an optional gutter value  that will be used between columns and rows.
+@mixin has-grid($columns, $gutter: 0) {
   @include align-content(stretch);
   @include align-items(stretch);
   @include display(flex);
   @include flex-direction(row);
   @include flex-wrap(wrap);
   @include justify-content(space-around);
+  column-count: $columns; // Used as a reference for JavaScript functions
 
   > * {
     @include flex(1 1 auto);
@@ -25,25 +27,43 @@
       width: (100% - ($gutter * ($columns - 1))) / $columns;
     }
 
+    // Remove the right margin for the last column in a row
+    // and the top margin for each column in the first row
     @if $gutter > 0 {
       margin-right: $gutter;
+      margin-top: $gutter;
 
-      // Remove the right margin for the last column in a row
-      &:last-child {
+      @for $i from 1 through $columns {
+        &:nth-child(#{$i}) {
+          margin-top: 0;
+        }
+      }
+
+      &:nth-child(#{$columns}n) {
         margin-right: 0;
       }
     }
+
+    // The JavaScript component will add empty spans to keep a uniform column width
+    &:empty {
+      margin-bottom: 0;
+      margin-top: 0;
+      visibility: hidden;
+    }
   }
 
-  // Stack columns when the mobile breakpoint is set
   @media (max-width: $mobile-breakpoint) {
     > * {
       margin-bottom: $gutter;
       margin-right: 0;
       width: 100%;
 
-      &:last-child {
+      &:last-of-type {
         margin-bottom: 0;
+      }
+
+      &:empty {
+        display: none;
       }
     }
   }
