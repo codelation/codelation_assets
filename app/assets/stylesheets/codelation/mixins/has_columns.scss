@@ -13,16 +13,30 @@ $mobile-breakpoint: 767px !default;
 
   > * {
     @include flex(1 1 auto);
-    width: (1 / $columns) * 85%;
 
-    @if $gutter > 0 {
+    @if ($gutter == 0) {
+      // If there is no gutter, we don't need to do anything other
+      // than split up the columns evenly.
+      width: 100% / $columns;
+    } @else if (unit($gutter) == "px" or unit($gutter) == "em") {
+      // If there is a fixed gutter size, we need to trick the columns into
+      // being close to the right width and stretching to fill in the rest.
       margin-right: $gutter;
+      width: 85% / $columns;
 
-      &:nth-child(#{$columns}n) {
-        margin-right: 0;
-      }
+    } @else if (unit($gutter) == "%") {
+      // If the gutter size is a percentage of the width, we can use the percentage
+      // to calculate the width of the columns as a percentage as well.
+      margin-right: $gutter;
+      width: (100% - ($gutter * ($columns - 1))) / $columns;
     }
 
+    // Remove the right margin for the last column in a row
+    &:nth-child(#{$columns}n) {
+      margin-right: 0;
+    }
+
+    // Use empty elements to keep all columns the same width
     &:empty {
       margin-bottom: 0;
       margin-top: 0;
@@ -30,6 +44,7 @@ $mobile-breakpoint: 767px !default;
     }
   }
 
+  // Stack columns when the mobile breakpoint is set
   @media (max-width: $mobile-breakpoint) {
     > * {
       margin-bottom: $gutter;
@@ -45,4 +60,32 @@ $mobile-breakpoint: 767px !default;
       }
     }
   }
+}
+
+@function container-span($span: $span) {
+  @if length($span) == 3 {
+    $container-columns: nth($span, 3);
+    @return $container-columns;
+  } @else if length($span) == 2 {
+    $container-columns: nth($span, 2);
+    @return $container-columns;
+  }
+
+  @return $grid-columns;
+}
+
+@mixin col-span($span: $columns of $total-columns, $gutter: 0) {
+  $columns: nth($span, 1);
+  $container-columns: container-span($span);
+
+  @if ($gutter != 0 and unit($gutter) != "%") {
+    @error "The col-span mixin can only be used if there is no gutter or the gutter's unit is %";
+  }
+
+  $single-column-width: (100% - ($gutter * ($container-columns - 1))) / $container-columns;
+  $spanned-width: $single-column-width * $columns;
+  $spanned-gutters-width: $gutter * ($columns - 1);
+
+  margin-right: $gutter;
+  width: $spanned-width + $spanned-gutters-width;
 }
