@@ -17,9 +17,7 @@ Install the Codelation Assets gem with Bundler:
 bundle install
 ```
 
-## Usage
-
-### JavaScript
+## JavaScript
 
 Add to `application.js`:
 
@@ -27,12 +25,12 @@ Add to `application.js`:
 //= require codelation
 ```
 
-#### App Functions
+### App Functions
 
 The `App` object is used in Codelation's Rails projects to register components that
 need to be initialized on every page and to sprinkle in JavaScript on specific pages.
 
-##### Registering JavaScript Components
+#### Registering JavaScript Components
 
 By using `App.register('component')`, you can fire some JavaScript on every page load.
 
@@ -69,10 +67,13 @@ Example:
 })();
 ```
 
-##### Registering Per Page JavaScript Snippets
+#### Registering Per Page JavaScript Snippets
 
 You can use `App.register('[controller-name].[action-name]')` to fire some JavaScript any time
 that page is loaded and unloaded. The `enter` and `exit` functions work the same as components.
+
+This assumes you are using a helper to set the body class to include the dasherized controller
+name and dasherized action.
 
 Example:
 
@@ -96,7 +97,7 @@ Example:
 You can also use `App.register('[controller-name]')` to fire JavaScript on all pages
 for the given controller name.
 
-### Sass
+## Sass
 
 Add to `application.scss`:
 
@@ -104,18 +105,18 @@ Add to `application.scss`:
 @include "codelation";
 ```
 
-#### Included Sass/CSS Libraries
+### Included Sass/CSS Libraries
 
 - [Bourbon](http://bourbon.io) - A simple and lightweight mixin library for Sass.
 - [Normalize.css](https://necolas.github.io/normalize.css/) - A modern, HTML5-ready alternative to CSS resets
 
-#### Additional Functions and Mixins
+### Additional Functions and Mixins
 
 A handful of useful Sass functions and mixins written by Codelation are also included.
 
-##### Sass Functions
+#### Sass Functions
 
-**color($color, $number: 500)**
+##### color($color, $number: 500)
 
 The [Google Material Design Colors](https://www.google.com/design/spec/style/color.html) come in handy when you
 need a color for creating application interfaces. They are a much better alternative to CSS's named colors
@@ -140,31 +141,33 @@ Examples:
 }
 ```
 
-**text-color($color)**
+##### text-color($color)
 
 This function is useful for creating mixins where you have a background color as a variable
 and need to display either black or white text on top of the given color.
 
-##### Sass Mixins
+#### Sass Mixins
 
-**button($background-color: color($grey, 100), $color: color($grey, 800), $active-background-color: $accent-color, $active-color: text-color($accent-color))**
+##### button($background-color: color($grey, 100), $color: color($grey, 800), $active-background-color: $accent-color, $active-color: text-color($accent-color))
 
 By default, `@include button;` will create a plain grey button. It looks a lot like the default button in some
 browsers, but it will be rendered to look the same across all browsers. Useful for applications that need to
 be obvious about a button looking like a button.
 
-**center-children**
+##### center-children
 
 This mixin uses flexbox to center the child elements horizontally and vertically inside the element.
 A good use case is centering an image of unknown height inside a container with a fixed height.
 
-**has-cards($columns, $margin: 0)**
+##### has-cards($columns, $margin: 0)
 
 This mixin uses flexbox to create a cards layout like that used by Google Material Design. The
 mixin is used on the container element. This will create a fixed margin between each card element
 and adds padding around the outside of the cards. Useful for creating a dashboard widgets look.
 
 Example:
+
+**HTML**
 
 ```html
 <div class="dashboard">
@@ -174,6 +177,8 @@ Example:
   <div class="card"><div>
 </div>
 ```
+
+**SCSS**
 
 ```scss
 // This will create a cards layout with two cards per row.
@@ -191,22 +196,26 @@ Example:
 }
 ```
 
-**has-columns($columns, $gutter: 0)**
+##### has-columns($columns, $gutter: 0)
 
-This mixin uses flexbox to create a layout with the specified number of columns
-that stretch to fill the container's height. The given gutter size will the margin
-between the columns. There is no need to set a margin-right of 0 to the nth-child
-or anything like that. Flexbox rules!
+This mixin uses flexbox to create a layout with the specified number of columns that
+stretch to fill the container's height. The given gutter size will the margin between
+the columns. The container should be a single row with a known number of child
+elements. Use `has-grid` if there is an unknown number of child elements.
 
 Example:
 
+**HTML**
+
 ```html
 <div class="row">
-  <div class="column"><div>
-  <div class="column"><div>
-  <div class="column"><div>
+  <div>Column 1<div>
+  <div>Column 2<div>
+  <div>Column 3<div>
 </div>
 ```
+
+**SCSS**
 
 ```scss
 // This will create a layout with three columns.
@@ -214,6 +223,78 @@ Example:
 // There will be a fixed gutter of 12px between the columns.
 .row {
   @include has-columns(3, 12px);
+}
+```
+
+###### col-span($columns of $container-columns, $gutter: 0)
+
+When the `has-columns` mixin is used properly, you can create columns in a row that
+span the width of multiple columns in another row. In order to use the `col-span`
+mixin, you must use a percentage value or zero for your gutter width. There is no way
+to have a fixed gutter width, flexible column widths, and match up with the columns
+in another row.
+
+Example:
+
+**HTML**
+
+```html
+<div class="row">
+  <div>Column 1<div>
+  <div>Column 2<div>
+  <div>Column 3<div>
+</div>
+<div class="row">
+  <div class="wide-column">Column 4<div>
+  <div>Column 5<div>
+</div>
+```
+
+**SCSS**
+
+```scss
+.row {
+  @include has-columns(3, 3%);
+}
+
+// Column 4 will span across two columns. Its left side will match up with
+// column 1's left side, and its right side will match up with column 2's right
+// side. Column 5's right margin will be set to 0 without any extra SCSS.
+.wide-column {
+  @include col-span(2 of 3, 3%)
+}
+```
+
+##### has-grid($columns, $gutter: 0)
+
+This mixin uses flexbox to create a grid layout with an unknown number of child elements.
+Each child element will have the same width and they will stretch to be the same height.
+The gutter size is the width between each column and the height between each row. Unlike
+the `has-cards` mixin, there will not be a margin around the child elements, only between.
+This mixin is perfect for a product category page.
+
+Example:
+
+**HTML**
+
+```html
+<div class="products">
+  <div>Product 1<div>
+  <div>Product 2<div>
+  <div>Product 3<div>
+  <div>Product 4<div>
+  <div>Product 5<div>
+</div>
+```
+
+**SCSS**
+
+```scss
+// Products 1 - 3 will be on the first row and there will be a margin of 1em between them.
+// Products 4 & 5 will be on the second row and will match up with products 1 & 2.
+// There will be a margin of 1em between the rows.
+.products {
+  @include has-grid(3, 1em);
 }
 ```
 
