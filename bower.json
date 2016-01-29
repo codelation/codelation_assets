@@ -1,14 +1,14 @@
 {
   "name": "codelation_assets",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "homepage": "https://github.com/codelation/codelation_assets",
   "authors": [
     "Brian Pattison <brian@brianpattison.com>"
   ],
   "description": "A collection of Sass mixins and JavaScript helpers used by Codelation for building awesome Rails apps quickly.",
   "main": [
-    "bower/codelation.js",
-    "bower/codelation.scss"
+    "./bower/codelation.js",
+    "./bower/codelation.scss"
   ],
   "license": "MIT",
   "ignore": [
