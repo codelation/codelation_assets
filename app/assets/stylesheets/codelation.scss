@@ -2,7 +2,7 @@
 // https://codelation.com
 $mobile-breakpoint: 767px !default;
 
-@import "bourbon";
+@import "bourbon/bourbon";
 @import "codelation/functions/**/*";
 @import "codelation/mixins/**/*";
 @import "normalize";
