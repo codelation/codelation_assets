@@ -308,40 +308,20 @@ a ul list of options to select from.  User the following to style:
 ***HTML***
 
 ```html
-<select class="custom">
-  <option value="example">Example</option>
-  <option selected="selected" value="selected-example">Selected</option>
-</select>
+<div class="selector">
+  <select class="custom">
+    <option value="example">Example</option>
+    <option selected="selected" value="selected-example">Selected</option>
+  </select>
+</div>
 ```
 
 ***SCSS***
 
 ```scss
-//override these variable to change its basic style
-$select-background-color: $color;
-$select-border: 1px solid $color;
-$select-arrow-color: $color;
-$select-border-radius: $radius;
-$select-height: $height;
-$select-width: $width;
-
-//To add more styles
-.select {
-  //style the selectbox container
+.selector {
+  @include select($height, $width, $background-color, $color, $border, $border-radius, $arrow-color, $options-width)
 }
-
-.select-styled {
-  //style the selectbox selected value
-}
-
-.select-options {
-  //style the selectbox options container
-
-  li {
-    //style the selectbox options
-  }
-}
-
 ```
 
 ## Contributing
