@@ -5,6 +5,7 @@ $mobile-breakpoint: 767px !default;
 @import "bourbon/bourbon";
 @import "codelation/functions/**/*";
 @import "codelation/mixins/**/*";
+@import "codelation/components/**/*";
 @import "normalize";
 
 // Border Box by default for all elements
