@@ -1,16 +1,21 @@
-(function() {
-  "use strict";
+/*
+Required Args: container (a reference to a node)
+Optional Args:
+  - scrollBreak: (int) Determines how big the options menu is compaired to the screen size
+*/
 
-  App.register('component').enter(function() {
-    $('select.custom').each(function(){
+var SelectBox = function(args) {
+  if ($(args.container).has("select")){
+    var selectboxObj = $(args.container).find("select");
+
+    $(selectboxObj).each(function(){
      var $this = $(this), numberOfOptions = $(this).children('option').length;
 
-     $this.addClass('select-hidden');
-     $this.wrap('<div class="select"></div>');
-     $this.after('<div class="select-styled"></div>');
+     $this.wrap('<div class="ca-selectbox"></div>');
+     $this.after('<div class="ca-selectbox-styled"></div>');
 
      //Set the selected item
-     var $styledSelect = $this.next('div.select-styled');
+     var $styledSelect = $this.next('div.ca-selectbox-styled');
      var selectedValue = $this.children('option').eq(0).text();
      $this.children('option').each(function () {
        if ($(this).attr("selected")) {
@@ -21,8 +26,16 @@
 
 
      var $list = $('<ul />', {
-         'class': 'select-options'
+         'class': 'ca-selectbox-options'
      }).insertAfter($styledSelect);
+
+     args.scrollBreak =  (args.scrollBreak == null) ? 2 : args.scrollBreak;
+     //sets height of options
+     var optionListHeight = $(window).height() / args.scrollBreak;
+     if (optionListHeight < 230){
+       optionListHeight = 230;
+     }
+     $list.css({maxHeight: optionListHeight + 'px'});
 
      for (var i = 0; i < numberOfOptions; i++) {
          $('<li />', {
@@ -36,23 +49,23 @@
      //Toggle Select box
      $styledSelect.click(function(e) {
          e.stopPropagation();
-         $(this).toggleClass('active').next('ul.select-options').toggle();
+         $(this).toggleClass('ca-selectbox-option-active').next('ul.ca-selectbox-options').toggle();
      });
 
      //Select option
      $listItems.click(function(e) {
          e.stopPropagation();
-         $styledSelect.text($(this).text()).removeClass('active');
+         $styledSelect.text($(this).text()).removeClass('ca-selectbox-option-active');
          $this.val($(this).attr('rel'));
          $list.hide();
      });
 
      //Close if clicked outside
      $(document).click(function() {
-         $styledSelect.removeClass('active');
+         $styledSelect.removeClass('ca-selectbox-option-active');
          $list.hide();
      });
 
     });
-  });
-})();
+  }
+};

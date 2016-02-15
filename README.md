@@ -309,18 +309,29 @@ a ul list of options to select from.  User the following to style:
 
 ```html
 <div class="selector">
-  <select class="custom">
+  <select>
     <option value="example">Example</option>
     <option selected="selected" value="selected-example">Selected</option>
   </select>
 </div>
 ```
 
+***JAVASCRIPT***
+```javascript
+sbox = SelectBox.new({
+  container: $(".selector"),
+  scrollBreak: 2 // not required but can change how big the options menu is relative to the screen size
+})
+```
+
 ***SCSS***
 
 ```scss
 .selector {
-  @include select($height, $width, $background-color, $color, $border, $border-radius, $arrow-color, $options-width)
+  // If any of these default variables are set, then it will adopt those values
+  // $base-body-color, $base-font-color, $base-border-color, $base-border-radius
+
+  @include select($height, $padding, $background-color, $color, $border, $border-radius, $arrow-color)
 }
 ```
 
