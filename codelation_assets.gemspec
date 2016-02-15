@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "A collection of Sass mixins and JavaScript helpers used by Codelation for building awesome Rails apps quickly."
   s.licenses    = ["MIT"]
 
-  s.files = Dir["{app,lib,vendor}/**/*", "LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", ">= 4.0"
   s.add_development_dependency "rake"
