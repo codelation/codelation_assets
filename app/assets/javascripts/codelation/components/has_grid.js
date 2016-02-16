@@ -17,7 +17,7 @@
       children = container.children().length;
       missingColumns = columns - (children % columns);
       for (var i = 0; i < missingColumns; i++) {
-        container.append('<span></span>');
+        container.append('<div></div>');
       }
     });
   });
