@@ -196,12 +196,16 @@ Example:
 }
 ```
 
-##### has-columns($columns, $gutter: 0)
+##### has-columns($columns: 0, $gutter: 0, $grow: true)
 
 This mixin uses flexbox to create a layout with the specified number of columns that
 stretch to fill the container's height. The given gutter size will the margin between
-the columns. The container should be a single row with a known number of child
-elements. Use `has-grid` if there is an unknown number of child elements.
+the columns. The container must be a single row of columns.
+
+When the column count is given, the columns will all be the same width. If no column
+count is given, the row will behave like a table row. The entire width will be used
+and each column width will be determined by its content. `$grow` can be set to false
+if you don't want the columns to take up the entire width of the container.
 
 Example:
 
@@ -213,16 +217,32 @@ Example:
   <div>Column 2<div>
   <div>Column 3<div>
 </div>
+
+<div class="table">
+  <div>Column 1</div>
+  <div>Column 2</div>
+  <div>Column 3</div>
+  <div>Column 4</div>
+  <div>Column 5</div>
+</div>
 ```
 
 **SCSS**
 
 ```scss
-// This will create a layout with three columns.
+// This will create a row with three columns.
 // The columns will all fill the container height.
 // There will be a fixed gutter of 12px between the columns.
 .row {
   @include has-columns(3, 12px);
+}
+
+// This will create a row with five columns.
+// The columns will all fill the container height and width.
+// The width of each column will be determined by its content.
+// There will be a fixed gutter of 10px between the columns.
+.table {
+  @include has-columns($gutter: 10px);
 }
 ```
 

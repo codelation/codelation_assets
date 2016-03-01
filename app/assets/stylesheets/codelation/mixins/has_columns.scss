@@ -1,28 +1,34 @@
 // Sets up a element and its child elements with the flexbox properties needed
 // to have the given number of columns with an optional gutter value.
-@mixin has-columns($columns, $gutter: 0) {
+@mixin has-columns($columns: 0, $gutter: 0, $grow: true) {
   @include align-content(stretch);
   @include align-items(stretch);
   @include display(flex);
   @include flex-direction(row);
-  @include flex-wrap(wrap);
-  @include justify-content(space-around);
+  @include flex-wrap(nowrap);
+  @include justify-content(flex-start);
 
   > * {
-    @include flex(1 1 auto);
+    @if $grow {
+      @include flex(1 1 auto);
+    }
 
-    @if $gutter == 0 {
-      // If there is no gutter, we don't need to do anything other
-      // than split up the columns evenly.
-      width: 100% / $columns;
-    } @else if unit($gutter) == "px" or unit($gutter) == "em" {
-      // If there is a fixed gutter size, we need to trick the columns into
-      // being close to the right width and stretching to fill in the rest.
-      width: 85% / $columns;
-    } @else if unit($gutter) == "%" {
-      // If the gutter size is a percentage of the width, we can use the percentage
-      // to calculate the width of the columns as a percentage as well.
-      width: (100% - ($gutter * ($columns - 1))) / $columns;
+    // We only want to set the column width if more than 1 column was specified
+    // and we're looking to fill the container's width.
+    @if $grow and $columns > 1 {
+      @if $gutter == 0 {
+        // If there is no gutter, we don't need to do anything
+        // other than split up the columns evenly.
+        width: 100% / $columns;
+      } @else if unit($gutter) == "px" or unit($gutter) == "em" {
+        // If there is a fixed gutter size, we need to trick the columns into
+        // being close to the right width and stretching to fill in the rest.
+        width: 85% / $columns;
+      } @else if unit($gutter) == "%" {
+        // If the gutter size is a percentage of the width, we can use the percentage
+        // to calculate the width of the columns as a percentage as well.
+        width: (100% - ($gutter * ($columns - 1))) / $columns;
+      }
     }
 
     @if $gutter > 0 {
@@ -37,6 +43,8 @@
 
   // Stack columns when the mobile breakpoint is set
   @media (max-width: $mobile-breakpoint) {
+    @include flex-wrap(wrap);
+
     > * {
       margin-bottom: $gutter;
       margin-right: 0;
