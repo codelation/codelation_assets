@@ -10,7 +10,7 @@
   @include justify-content(space-around);
   column-count: $columns; // Used as a reference for JavaScript functions
 
-  > * {
+  > *:not(script) {
     @include flex(1 1 auto);
 
     @if $gutter == 0 {
@@ -53,7 +53,7 @@
   }
 
   @media (max-width: $mobile-breakpoint) {
-    > * {
+    > *:not(script) {
       margin-bottom: $gutter;
       margin-right: 0;
       margin-top: 0;

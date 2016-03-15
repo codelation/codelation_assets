@@ -8,7 +8,7 @@
   @include flex-wrap(nowrap);
   @include justify-content(flex-start);
 
-  > * {
+  > *:not(script) {
     @if $grow {
       @include flex(1 1 auto);
     }
@@ -45,7 +45,7 @@
   @media (max-width: $mobile-breakpoint) {
     @include flex-wrap(wrap);
 
-    > * {
+    > *:not(script) {
       margin-bottom: $gutter;
       margin-right: 0;
       width: 100%;
