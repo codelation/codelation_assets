@@ -4,7 +4,6 @@ $max-width: 1024px !default;
 // margin-right to auto. The max width can be overridden by defining $max-width.
 // A left and right padding of 12px is added by default.
 @mixin outer-container($padding: 12px) {
-  display: block;
   margin-left: auto;
   margin-right: auto;
   max-width: $max-width;
