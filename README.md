@@ -102,7 +102,7 @@ for the given controller name.
 Add to `application.scss`:
 
 ```scss
-@include "codelation";
+@import "codelation";
 ```
 
 ### Included Sass/CSS Libraries
