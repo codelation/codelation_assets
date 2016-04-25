@@ -57,7 +57,7 @@
   };
 
   // Fires off any callbacks registered for enter, with or without Turbolinks.
-  $(document).on('ready page:load', function() {
+  $(document).on('ready page:load page:restore', function() {
     bodyElement = $('body');
 
     // Determine which functions should be fired
