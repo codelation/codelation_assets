@@ -1,0 +1,103 @@
+$base-body-color: #fff !default;
+$base-font-color: #000 !default;
+$base-border-color: color($grey, 300) !default;
+$base-border-radius: 3px !default;
+
+@mixin selectbox($height: 40px, $padding: 0 5px, $bg-color: $base-body-color, $color: $base-font-color, $border: 1px solid $base-border-color, $border-radius: $base-border-radius, $arrow-color: transparentize($base-font-color, 0.5)) {
+  select {
+    display: none;
+    visibility: hidden;
+  }
+
+  .ca-selectbox {
+    background-color: $bg-color;
+    cursor: pointer;
+    font-size: 1em;
+    height: $height;
+    padding: 0 10px;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  .ca-selectbox-styled {
+    @include transition(all 0.2s ease-in);
+
+    align-items: center;
+    border: $border;
+    border-radius: $border-radius;
+    bottom: 0;
+    display: flex;
+    left: 0;
+    padding: $padding;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &:after {
+      border: 7px solid transparent;
+      border-color: $arrow-color transparent transparent;
+      bottom: 0;
+      content: "";
+      height: 0;
+      margin: auto 6px;
+      position: absolute;
+      right: 0;
+      top: 4px;
+      width: 0;
+    }
+
+    &:hover {
+      background-color: darken($bg-color, 2);
+    }
+
+    &:active,
+    &.ca-selectbox-option-active {
+      background-color: darken($bg-color, 5);
+
+      &:after {
+        border-color: transparent transparent $arrow-color;
+        top: -4px;
+      }
+    }
+  }
+
+  .ca-selectbox-options {
+    background-color: $base-body-color;
+    border: $border;
+    border-radius: $border-radius;
+    box-shadow: 2px 2px 2px color($grey, 600);
+    display: none;
+    left: 0;
+    list-style: none;
+    margin: 0;
+    overflow: auto;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 999;
+
+    li {
+      @include transition(all 0.15s ease-in);
+      align-items: center;
+      border-top: $border;
+      display: flex;
+      height: $height;
+      margin: 0;
+      padding: $padding;
+
+
+      &:hover {
+        background: darken($bg-color, 10);
+      }
+
+      &[rel="hide"] {
+        display: none;
+      }
+
+      &:first-child {
+        border: 0;
+      }
+    }
+  }
+}

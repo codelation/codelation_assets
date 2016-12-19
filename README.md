@@ -318,6 +318,43 @@ Example:
 }
 ```
 
+#### Components
+
+##### Selectbox
+
+Creates a styled jQuery selectbox.  This will create a div to hold the selected value and
+a ul list of options to select from.  User the following to style:
+
+***HTML***
+
+```html
+<div class="selector">
+  <select>
+    <option value="example">Example</option>
+    <option selected="selected" value="selected-example">Selected</option>
+  </select>
+</div>
+```
+
+***JAVASCRIPT***
+```javascript
+sbox = SelectBox.new({
+  container: $(".selector"),
+  scrollBreak: 2 // not required but can change how big the options menu is relative to the screen size
+})
+```
+
+***SCSS***
+
+```scss
+.selector {
+  // If any of these default variables are set, then it will adopt those values
+  // $base-body-color, $base-font-color, $base-border-color, $base-border-radius
+
+  @include select($height, $padding, $background-color, $color, $border, $border-radius, $arrow-color)
+}
+```
+
 ## Contributing
 
 1. Fork it
