@@ -2,15 +2,23 @@
 // https://codelation.com
 
 // Used to set the max-width with the outer-container mixin
-$max-width: 1024px !default;
+$max-width:         1280px !default;
 
 // Used for has-cards, has-columns, and has-grid mixins. When the
 // viewport reaches the mobile-breakpoint, the columns will be stacked.
 $mobile-breakpoint: 767px !default;
 
+// Used for special occassions when the app requires
+// extra break points for tablets.
+$tablet-breakpoint: 1024px !default;
+
+// Used for spacing elements such as sections, rows, etc.
+$element-spacing:   80px !default;
+
 @import "bourbon/bourbon";
 @import "codelation/functions/**/*";
 @import "codelation/mixins/**/*";
+@import "codelation/layout/**/*";
 @import "normalize";
 
 // Border Box by default for all elements

@@ -1,0 +1,11 @@
+.row {
+  margin-bottom: $element-spacing / 4;
+
+  &.actions {
+    padding-top: $element-spacing / 4;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
