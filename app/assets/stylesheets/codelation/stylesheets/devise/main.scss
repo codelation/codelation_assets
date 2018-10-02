@@ -1,11 +1,12 @@
 body.confirmations,
+body.invitations,
 body.mailer,
 body.passwords,
 body.registrations,
 body.sessions,
 body.shared,
 body.unlocks {
-  background-color: $color($grey, 100);
+  background-color: color($grey, 100);
 
   .application-wrap {
     background-color: transparent;
@@ -21,7 +22,7 @@ body.unlocks {
     padding: $element-spacing / 2;
 
     h2 {
-      border-bottom: 2px solid $color($grey, 100);
+      border-bottom: 2px solid color($grey, 100);
       font-size: 24px;
       font-weight: 400;
       line-height: 1;
@@ -45,7 +46,7 @@ body.unlocks {
     }
 
     .actions {
-      border-bottom: 2px solid $color($grey, 100);
+      border-bottom: 2px solid color($grey, 100);
       margin: 0 0 $element-spacing / 3;
       padding-bottom: $element-spacing / 3;
     }
