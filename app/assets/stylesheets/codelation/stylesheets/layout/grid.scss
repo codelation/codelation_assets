@@ -1,0 +1,34 @@
+.section-content {
+
+  &.three-column-grid {
+    @include has-grid(3, $element-spacing / 3);
+  }
+
+  &.four-column-grid {
+    @include has-grid(4, $element-spacing / 3);
+  }
+
+  &.five-column-grid {
+    @include has-grid(5, $element-spacing / 3);
+  }
+
+  &.six-column-grid {
+    @include has-grid(6, $element-spacing / 4);
+  }
+
+  &.seven-column-grid {
+    @include has-grid(7, $element-spacing / 5);
+  }
+
+  &.eight-column-grid {
+    @include has-grid(8, $element-spacing / 5);
+  }
+
+  &.nine-column-grid {
+    @include has-grid(5, $element-spacing / 6);
+  }
+
+  &.ten-column-grid {
+    @include has-grid(5, $element-spacing / 6);
+  }
+}

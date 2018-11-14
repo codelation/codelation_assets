@@ -1,0 +1,88 @@
+body.confirmations,
+body.invitations,
+body.mailer,
+body.passwords,
+body.registrations,
+body.sessions,
+body.shared,
+body.unlocks {
+  background-color: color($grey, 100);
+
+  .application-wrap {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .application-main {
+    background-color: $white;
+    border-top-right-radius: $element-spacing / 2;
+    box-shadow: 0 0 25px rgba($black, 0.5);
+    margin: $element-spacing auto;
+    max-width: 420px;
+    padding: $element-spacing / 2;
+
+    h2 {
+      border-bottom: 2px solid color($grey, 100);
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1;
+      margin: 0 0 $element-spacing / 3;
+      padding-bottom: $element-spacing / 3;
+    }
+
+    .field {
+      margin-bottom: $element-spacing / 3;
+
+      label {
+        color: color($grey, 600);
+        display: inline-block;
+        font-size: 14px;
+        text-transform: uppercase;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .actions {
+      border-bottom: 2px solid color($grey, 100);
+      margin: 0 0 $element-spacing / 3;
+      padding-bottom: $element-spacing / 3;
+    }
+
+    .user-links {
+
+      h6 {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      a {
+        font-size: 14px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        text-decoration: none;
+      }
+    }
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+
+    .application-main {
+      margin: $element-spacing / 4;
+      max-width: 100%;
+      padding: $element-spacing / 4;
+
+      h2 {
+        margin: 0 0 $element-spacing / 4;
+        padding-bottom: $element-spacing / 4;
+      }
+
+      .actions {
+        margin: 0 0 $element-spacing / 4;
+        padding-bottom: $element-spacing / 4;
+      }
+    }
+  }
+}
